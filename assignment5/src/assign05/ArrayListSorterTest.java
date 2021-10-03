@@ -33,5 +33,7 @@ class ArrayListSorterTest {
 		ArrayListSorter.quicksort(arr);
 		assertTrue(arr.isEmpty());
 	}
+	
+	//TEST 2Merge 2Quick etc.
 
 }
