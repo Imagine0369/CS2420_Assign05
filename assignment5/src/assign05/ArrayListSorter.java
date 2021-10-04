@@ -70,16 +70,29 @@ public class ArrayListSorter {
 		  }
 	}
 	
-//		public static <T extends Comparable<? super T>> void quicksort(ArrayList<T> arr) {
+	public static <T extends Comparable<? super T>> void quicksort(ArrayList<T> arr) {
 		quicksortRecursive(arr, 0, arr.size()-1 );
 	}
 	
 	private static <T extends Comparable<? super T>> void quicksortRecursive(ArrayList<T> arr, int leftBound, int rightBound) {
 		
+		if (leftBound < rightBound) {
+			int partitionIndex = partition(arr, leftBound, rightBound);
+			
+			//partition left half
+			quicksortRecursive(arr, leftBound, partitionIndex-1);
+			//partition right half
+			quicksortRecursive(arr, partitionIndex+1, rightBound);
+			
+		}//end if
+
+	}
+	
+	private static <T extends Comparable<? super T>> int partition(ArrayList<T> arr, int leftBound, int rightBound ) {
 		int L = leftBound;
 		int R = rightBound - 1;
 		
-		int pivotIndex = findPartitionMiddle(arr, leftBound, rightBound);
+		int pivotIndex = findPivotLeft(arr, leftBound, rightBound);
 		T pivot = arr.get(pivotIndex);
 		swapReferences(arr, rightBound, pivotIndex);
 
@@ -94,24 +107,9 @@ public class ArrayListSorter {
 		  if(L < R)
 			  swapReferences(arr, L, R);
 		}
-		
-		quicksortRecursive(arr, L, rightBound);
-		
-		
-		
-		if (leftBound < rightBound) {
-//			T pivot = findPartitionMiddle(arr, leftBound, rightBound);
-//			
-//			//partition left half
-//			quicksortRecursive(arr, leftBound, pivot-1);
-//			//partition right half
-//			quicksortRecursive(arr, pivot+1, rightBound);
-			
-		}else {
-			T temp = arr.get(leftBound);
-			arr.set( leftBound, arr.get(rightBound));
-			arr.set( rightBound, temp);
-		}
+		//adds pivot back in
+		swapReferences(arr, L, rightBound);
+		return L;
 	}
 	
 	private static <T> void swapReferences(ArrayList<T> arr, int leftSwitchIndex, int rightSwitchIndex ) {
@@ -120,16 +118,20 @@ public class ArrayListSorter {
 		arr.set( rightSwitchIndex, temp);
 	}
 	
-	private static <T> T findPartitionRight(ArrayList<T> arr, int leftBound, int rightBound) {
-		return arr.get(rightBound);
+	private static <T> int findPivotRight(ArrayList<T> arr, int leftBound, int rightBound) {
+		return rightBound;
 	}
 	
-	private static <T> int findPartitionMiddle(ArrayList<T> arr, int leftBound, int rightBound) {
+	private static <T> int findPivotLeft(ArrayList<T> arr, int leftBound, int rightBound) {
+		return leftBound;
+	}
+	
+	private static <T> int findPivotMiddle(ArrayList<T> arr, int leftBound, int rightBound) {
 		int middle = leftBound + (rightBound - leftBound)/2;
 		return middle;
 	}
 	
-	private static <T> T findPartitionBetter(ArrayList<T> arr, int leftBound, int rightBound) {
+	private static <T> T findPivotBetter(ArrayList<T> arr, int leftBound, int rightBound) {
 		//random generate 3 indexes from within bounds
 		//average the 3 indexes
 		//return the average of the 3 indexes
