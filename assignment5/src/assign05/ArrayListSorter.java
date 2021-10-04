@@ -1,6 +1,7 @@
 package assign05;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class ArrayListSorter {	
 	
@@ -22,8 +23,6 @@ public class ArrayListSorter {
 		System.out.println("THIS IS TEMP: " + temp.toString());
 		
 		mergesortRecursive(arr, temp, 0, arr.size()-1);
-		
-		  //Copy contents from temp into arr
 		 
 	}
 	
@@ -85,18 +84,24 @@ public class ArrayListSorter {
 //	
 //	
 //	
-//	public static ArrayList<Integer> generateAscending(int size){
-//		
-//	}
+	public static ArrayList<Integer> generateAscending(int size){
+		
+	}
 //	
 //	
-//	public static ArrayList<Integer> generatePermuted(int size){
-//		
-//	}
+	public static ArrayList<Integer> generatePermuted(int size){
+		ArrayList<Integer> shuffledArray = generateAscending(size);
+		Collections.shuffle(shuffledArray);
+		return shuffledArray;
+	}
 //	
-//	public static ArrayList<Integer> generateDescending(int size){
-//		
-//	}
+	public static ArrayList<Integer> generateDescending(int size){
+//		ArrayList<Integer> descendingArray = new ArrayList<>;
+//		for(int k = 1; k <= size; k++) {
+//			descendingArray.add(size-k);
+//		}
+//		return descendingArray;
+	}
 	
 	public static void main(String[] args) {
 		ArrayList<Integer> test = new ArrayList();
