@@ -85,7 +85,13 @@ public class ArrayListSorter {
 //	
 //	
 	public static ArrayList<Integer> generateAscending(int size){
+		ArrayList<Integer> ascendingList = new ArrayList<Integer>();
 		
+		for(int i = 1; i <= size; i++) {
+			ascendingList.add(i);
+		}
+		
+		return ascendingList;
 	}
 //	
 //	
