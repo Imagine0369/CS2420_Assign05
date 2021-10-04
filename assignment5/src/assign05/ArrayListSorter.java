@@ -157,11 +157,11 @@ public class ArrayListSorter {
 	}
 //	
 	public static ArrayList<Integer> generateDescending(int size){
-//		ArrayList<Integer> descendingArray = new ArrayList<>;
-//		for(int k = 1; k <= size; k++) {
-//			descendingArray.add(size-k);
-//		}
-//		return descendingArray;
+		ArrayList<Integer> descendingArray = new ArrayList<>;
+		for(int k = 0; k < size; k++) {
+			descendingArray.add(size-k);
+		}
+		return descendingArray;
 	}
 	
 	public static void main(String[] args) {
