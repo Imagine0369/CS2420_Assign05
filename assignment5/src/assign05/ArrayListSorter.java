@@ -26,10 +26,30 @@ public class ArrayListSorter {
 		 
 	}
 	
+	private static <T extends Comparable<? super T>> void insertionSort(ArrayList<T> arr, int start, int end) {
+	
+		// loop through unsorted section of array
+				for (int i = start; i <= end; i++) {
+					// Set key to first value in unsorted array
+					T key = arr.get(i);
+					// Compare it to each value in the sorted array.
+					// Place it in a position where it is greater than the value to its left
+					// But less than the value to its right. (Or at the 0th index if it is the
+					// smallest
+					// value in the sorted section
+					while (i != start && key.compareTo(arr.get(i - 1)) < 0) {
+						arr.set(i, arr.get(i-1));
+						i--;
+					}
+					arr.set(i, key);
+				}
+	}
+
+	
 	private static <T extends Comparable<? super T>> void mergesortRecursive(ArrayList<T> arr, ArrayList<T> temp, int start, int end) {
-		if(start >= end) {
+		if((start - end) < smallArrayThreshold) {
+			insertionSort(arr, start, end);
 			return;
-			//Insertion Sort
 		}
 		
 		  int mid = start + (end - start) / 2;
@@ -73,6 +93,7 @@ public class ArrayListSorter {
 	public static <T extends Comparable<? super T>> void quicksort(ArrayList<T> arr) {
 		quicksortRecursive(arr, 0, arr.size()-1 );
 	}
+
 	
 	private static <T extends Comparable<? super T>> void quicksortRecursive(ArrayList<T> arr, int leftBound, int rightBound) {
 		
@@ -157,7 +178,7 @@ public class ArrayListSorter {
 	}
 //	
 	public static ArrayList<Integer> generateDescending(int size){
-		ArrayList<Integer> descendingArray = new ArrayList<>;
+		ArrayList<Integer> descendingArray = new ArrayList<Integer>();
 		for(int k = 0; k < size; k++) {
 			descendingArray.add(size-k);
 		}
@@ -165,21 +186,14 @@ public class ArrayListSorter {
 	}
 	
 	public static void main(String[] args) {
-		ArrayList<Integer> test = new ArrayList();
+		ArrayList<Integer> test = new ArrayList<Integer>();
 		test.add(5);
-		test.add(3);
-		test.add(0);
-		test.add(6);
-		test.add(-2);
-		test.add(2);
-		test.add(1);
-		
-		test.add(0);
+		test.add(4);
 		test.add(3);
 		test.add(2);
 		test.add(1);
-
 		
+		System.out.println(generateDescending(5).toString());
 		System.out.println("BEFORE: " + test.toString());
 		mergesort(test);
 		System.out.println("AFTER: " + test.toString());
