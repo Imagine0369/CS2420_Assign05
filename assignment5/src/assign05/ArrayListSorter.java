@@ -70,18 +70,71 @@ public class ArrayListSorter {
 		  }
 	}
 	
-//	
-//	
-//	
-//	
-//	
-//	
-//	
-//	public static <T extends Comparable<? super T>> void quicksort(ArrayList<T> arr) {
-//		
-//	}
-//	
-//	
+//		public static <T extends Comparable<? super T>> void quicksort(ArrayList<T> arr) {
+		quicksortRecursive(arr, 0, arr.size()-1 );
+	}
+	
+	private static <T extends Comparable<? super T>> void quicksortRecursive(ArrayList<T> arr, int leftBound, int rightBound) {
+		
+		int L = leftBound;
+		int R = rightBound - 1;
+		
+		int pivotIndex = findPartitionMiddle(arr, leftBound, rightBound);
+		T pivot = arr.get(pivotIndex);
+		swapReferences(arr, rightBound, pivotIndex);
+
+		while(L <= R){
+		  while(L < rightBound && ( arr.get(L).compareTo(pivot) <= 0 ) ) {
+			  L++;  
+		  }
+		  while(R >= leftBound && ( arr.get(R).compareTo(pivot) >= 0) ) {
+			  R--;  
+		  }
+
+		  if(L < R)
+			  swapReferences(arr, L, R);
+		}
+		
+		quicksortRecursive(arr, L, rightBound);
+		
+		
+		
+		if (leftBound < rightBound) {
+//			T pivot = findPartitionMiddle(arr, leftBound, rightBound);
+//			
+//			//partition left half
+//			quicksortRecursive(arr, leftBound, pivot-1);
+//			//partition right half
+//			quicksortRecursive(arr, pivot+1, rightBound);
+			
+		}else {
+			T temp = arr.get(leftBound);
+			arr.set( leftBound, arr.get(rightBound));
+			arr.set( rightBound, temp);
+		}
+	}
+	
+	private static <T> void swapReferences(ArrayList<T> arr, int leftSwitchIndex, int rightSwitchIndex ) {
+		T temp = arr.get(leftSwitchIndex);
+		arr.set( leftSwitchIndex, arr.get(rightSwitchIndex));
+		arr.set( rightSwitchIndex, temp);
+	}
+	
+	private static <T> T findPartitionRight(ArrayList<T> arr, int leftBound, int rightBound) {
+		return arr.get(rightBound);
+	}
+	
+	private static <T> int findPartitionMiddle(ArrayList<T> arr, int leftBound, int rightBound) {
+		int middle = leftBound + (rightBound - leftBound)/2;
+		return middle;
+	}
+	
+	private static <T> T findPartitionBetter(ArrayList<T> arr, int leftBound, int rightBound) {
+		//random generate 3 indexes from within bounds
+		//average the 3 indexes
+		//return the average of the 3 indexes
+		return arr.get(leftBound);
+	}
 //	
 //	
 	public static ArrayList<Integer> generateAscending(int size){
