@@ -35,5 +35,33 @@ class ArrayListSorterTest {
 	}
 	
 	//TEST 2Merge 2Quick etc.
-
+	@Test
+	void testGenerateAscendingEmpty() {
+		ArrayList<Integer> testArray = ArrayListSorter.generateAscending(0);
+		ArrayList<Integer> empty = new ArrayList<Integer>();
+		assertEquals(empty, testArray);
+	}
+	
+	@Test
+	void testGenerateAscendingNegative() {
+		ArrayList<Integer> testArray = ArrayListSorter.generateAscending(-10);
+		ArrayList<Integer> empty = new ArrayList<Integer>();
+		assertEquals(empty, testArray);
+	}
+	
+	@Test
+	void testGenerateAscendingOne() {
+		ArrayList<Integer> testArray = ArrayListSorter.generateAscending(1);
+		ArrayList<Integer> oneArr = new ArrayList<Integer>();
+		oneArr.add(1);
+		assertEquals(oneArr, testArray);
+	}
+	
+	@Test
+	void testGenerateAscendingBig() {
+		ArrayList<Integer> testArray = ArrayListSorter.generateAscending(1240);
+		assertEquals(1240, testArray.size());
+		for(int k = 1; k <= 1240; k++)
+			assertEquals(k, testArray.get(k-1));
+	}
 }
