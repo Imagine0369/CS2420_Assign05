@@ -109,34 +109,47 @@ public class ArrayListSorter {
 
 	}
 	
-	private static <T extends Comparable<? super T>> int partition(ArrayList<T> arr, int leftBound, int rightBound ) {
+	private static <T extends Comparable<? super T>> int partition(ArrayList<T> arr, int leftBound, int rightBound) {
 		int L = leftBound;
 		int R = rightBound - 1;
 		
-		int pivotIndex = findPivotLeft(arr, leftBound, rightBound);
+		//select a pivot
+		int pivotIndex = findPivotBetter(arr, leftBound, rightBound);
 		T pivot = arr.get(pivotIndex);
+		
+		//swap pivot to far right position
 		swapReferences(arr, rightBound, pivotIndex);
+		
+		//find elements to swap locations
+		while (L <= R) {
+			while (L < rightBound && (arr.get(L).compareTo(pivot) <= 0)) {
+				L++;
+			}
+			while (R >= leftBound && (arr.get(R).compareTo(pivot) >= 0)) {
+				R--;
+			}
 
-		while(L <= R){
-		  while(L < rightBound && ( arr.get(L).compareTo(pivot) <= 0 ) ) {
-			  L++;  
-		  }
-		  while(R >= leftBound && ( arr.get(R).compareTo(pivot) >= 0) ) {
-			  R--;  
-		  }
-
-		  if(L < R)
-			  swapReferences(arr, L, R);
+			if (L < R)
+				swapReferences(arr, L, R);
 		}
-		//adds pivot back in
+		
+		// adds pivot back in
 		swapReferences(arr, L, rightBound);
 		return L;
 	}
 	
-	private static <T> void swapReferences(ArrayList<T> arr, int leftSwitchIndex, int rightSwitchIndex ) {
+	/**	
+	 * Switches two elements in a generic ArrayList
+	 * 
+	 * @param <T> 				generic type 
+	 * @param arr				array list where all the data is 
+	 * @param leftSwitchIndex	index of element on the left that needs to switch
+	 * @param rightSwitchIndex	index of element on the right that needs to switch
+	 */
+	private static <T> void swapReferences(ArrayList<T> arr, int leftSwitchIndex, int rightSwitchIndex) {
 		T temp = arr.get(leftSwitchIndex);
-		arr.set( leftSwitchIndex, arr.get(rightSwitchIndex));
-		arr.set( rightSwitchIndex, temp);
+		arr.set(leftSwitchIndex, arr.get(rightSwitchIndex));
+		arr.set(rightSwitchIndex, temp);
 	}
 	
 	private static <T> int findPivotRight(ArrayList<T> arr, int leftBound, int rightBound) {
@@ -152,11 +165,31 @@ public class ArrayListSorter {
 		return middle;
 	}
 	
-	private static <T> T findPivotBetter(ArrayList<T> arr, int leftBound, int rightBound) {
-		//random generate 3 indexes from within bounds
-		//average the 3 indexes
-		//return the average of the 3 indexes
-		return arr.get(leftBound);
+	private static <T extends Comparable<? super T>> int findPivotBetter(ArrayList<T> arr, int leftBound,
+			int rightBound) {
+		// random generate 3 indexes from within bounds
+		Random generator = new Random();
+		int index1 = generator.nextInt(rightBound - leftBound) + leftBound;
+		int index2 = generator.nextInt(rightBound - leftBound) + leftBound;
+		int index3 = generator.nextInt(rightBound - leftBound) + leftBound;
+
+		// add the values of each index into an ArrayList
+		ArrayList<T> values = new ArrayList<T>();
+		values.add(arr.get(index1));
+		values.add(arr.get(index2));
+		values.add(arr.get(index3));
+
+		// sort the values
+		insertionSort(values, 0, 2);
+
+		// return the index that matches the middle value of the sorted array
+		if (values.get(1).compareTo(arr.get(index1)) == 0) {
+			return index1;
+		} else if (values.get(1).compareTo(arr.get(index2)) == 0) {
+			return index2;
+		} else {
+			return index3;
+		}
 	}
 //	
 //	
