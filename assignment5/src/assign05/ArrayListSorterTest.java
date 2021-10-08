@@ -10,11 +10,46 @@ class ArrayListSorterTest {
 	
 	final static int THRESHOLD = 0;
 	
-	//TEST GENERATE DESCENDING...
-	
 //--------------------------------Generate Descending Tests Begin------------------------------------
+	@Test
+	void testGenerateDescendingEmpty() {
+		ArrayList<Integer> testArray = ArrayListSorter.generateDescending(0);
+		ArrayList<Integer> empty = new ArrayList<Integer>();
+		assertEquals(empty, testArray);
+	}
 	
+	@Test
+	void testGenerateDescendingNegative() {
+		ArrayList<Integer> testArray = ArrayListSorter.generateDescending(-10);
+		ArrayList<Integer> empty = new ArrayList<Integer>();
+		assertEquals(empty, testArray);
+	}
 	
+	@Test
+	void testGenerateDescendingOne() {
+		ArrayList<Integer> testArray = ArrayListSorter.generateDescending(1);
+		ArrayList<Integer> oneArr = new ArrayList<Integer>();
+		oneArr.add(1);
+		assertEquals(oneArr, testArray);
+	}
+	
+	@Test
+	void testGenerateDescendingThree() {
+		ArrayList<Integer> testArray = ArrayListSorter.generateDescending(3);
+		ArrayList<Integer> oneArr = new ArrayList<Integer>();
+		oneArr.add(3);
+		oneArr.add(2);
+		oneArr.add(1);
+		assertEquals(oneArr, testArray);
+	}
+	
+	@Test
+	void testGenerateDescendingBig() {
+		ArrayList<Integer> testArray = ArrayListSorter.generateDescending(1240);
+		assertEquals(1240, testArray.size());
+		for(int k = 1240; k > 0; k--)
+			assertEquals(k, testArray.get(1240-k));
+	}
 //--------------------------------Generate Descending Tests End--------------------------------------	
 	
 	
@@ -43,16 +78,60 @@ class ArrayListSorterTest {
 	}
 	
 	@Test
+	void testGenerateAscendingThree() {
+		ArrayList<Integer> testArray = ArrayListSorter.generateAscending(3);
+		ArrayList<Integer> oneArr = new ArrayList<Integer>();
+		oneArr.add(1);
+		oneArr.add(2);
+		oneArr.add(3);
+		assertEquals(oneArr, testArray);
+	}
+	
+	@Test
 	void testGenerateAscendingBig() {
 		ArrayList<Integer> testArray = ArrayListSorter.generateAscending(1240);
 		assertEquals(1240, testArray.size());
 		for(int k = 1; k <= 1240; k++)
 			assertEquals(k, testArray.get(k-1));
-	}
-	
-	
+	}	
 //--------------------------------Generate Ascending Tests End-------------------------------------
 	
+
+//--------------------------------Generate Descending Tests Begin------------------------------------
+	@Test
+	void testGeneratePermutedEmpty() {
+		ArrayList<Integer> testArray = ArrayListSorter.generatePermuted(0);
+		ArrayList<Integer> empty = new ArrayList<Integer>();
+		assertEquals(empty, testArray);
+	}
+	
+	@Test
+	void testGeneratePermutedNegative() {
+		ArrayList<Integer> testArray = ArrayListSorter.generatePermuted(-10);
+		ArrayList<Integer> empty = new ArrayList<Integer>();
+		assertEquals(empty, testArray);
+	}
+	
+	@Test
+	void testGeneratePermutedOne() {
+		ArrayList<Integer> testArray = ArrayListSorter.generatePermuted(1);
+		ArrayList<Integer> oneArr = new ArrayList<Integer>();
+		oneArr.add(1);
+		assertEquals(oneArr, testArray);
+	}
+	
+	@Test
+	void testGeneratePermutedBig() {
+		ArrayList<Integer> testArray = ArrayListSorter.generatePermuted(1240);
+		
+		ArrayList<Integer> ascending = ArrayListSorter.generateAscending(1240);
+		ArrayList<Integer> descending = ArrayListSorter.generateDescending(1240);
+		assertEquals(1240, testArray.size());
+		
+		assertNotEquals(ascending, testArray);
+		assertNotEquals(descending, testArray);
+	}
+//--------------------------------Generate Descending Tests End------------------------------------	
 	
 //--------------------------------Merge Sort Tests Begin-------------------------------------------
 	@Test
