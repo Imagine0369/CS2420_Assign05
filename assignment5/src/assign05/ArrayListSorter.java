@@ -87,7 +87,7 @@ public class ArrayListSorter {
 		// Checks if sub-array is smaller than our threshold value. If it is, insertion
 		// sorts
 		// the sub array and returns. (BASE CASE)
-		if ((start - end) < smallArrayThreshold) {
+		if ((start - end) <= smallArrayThreshold) {
 			insertionSort(arr, start, end);
 			return;
 		}
