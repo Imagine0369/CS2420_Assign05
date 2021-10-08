@@ -91,7 +91,6 @@ public class ArrayListSorter {
 			insertionSort(arr, start, end);
 			return;
 		}
-
 		int mid = start + (end - start) / 2;
 		// Recursive call to split first half of array
 		mergesortRecursive(arr, temp, start, mid);
@@ -99,7 +98,6 @@ public class ArrayListSorter {
 		mergesortRecursive(arr, temp, mid + 1, end);
 		// Method used to combine two array halves
 		merge(arr, temp, start, mid, end);
-
 	}
 
 	/**
