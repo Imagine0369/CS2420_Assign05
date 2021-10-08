@@ -87,7 +87,7 @@ public class ArrayListSorter {
 		// Checks if sub-array is smaller than our threshold value. If it is, insertion
 		// sorts
 		// the sub array and returns. (BASE CASE)
-		if ((start - end) <= smallArrayThreshold) {
+		if ((start - end) < smallArrayThreshold) {
 			insertionSort(arr, start, end);
 			return;
 		}
@@ -152,37 +152,66 @@ public class ArrayListSorter {
 		}
 	}
 
-	public static <T extends Comparable<? super T>> void quicksort(ArrayList<T> arr) {
-		quicksortRecursive(arr, 0, arr.size() - 1);
+	/**
+	 * quickSort is a driver that calls a recursive quickSort method that 
+	 * sorts a generic ArrayList recursively according to the generic class 
+	 * comparable.  
+	 * 
+	 * @param <T> 	Generic class type
+	 * @param arr	Generic array list to be sorted
+	 */
+	public static <T extends Comparable<? super T>> void quickSort(ArrayList<T> arr) {
+		//call the recursive version of quickSort to actually 
+		quickSortRecursive(arr, 0, arr.size() - 1);
 	}
 
-	private static <T extends Comparable<? super T>> void quicksortRecursive(ArrayList<T> arr, int leftBound,
+	/**
+	 * Method that sorts a generic ArrayList 
+	 * recursively according to the generic class comparable.
+	 * Calls a helper method "partition" that separates values less than
+	 * the partition value
+	 * 
+	 * @param <T>			Generic class type
+	 * @param arr			Generic array list to be sorted
+	 * @param leftBound		left index of the array that you want to be sorted
+	 * @param rightBound	right index of the array that you want to be sorted
+	 */
+	private static <T extends Comparable<? super T>> void quickSortRecursive(ArrayList<T> arr, int leftBound,
 			int rightBound) {
 
 		if (leftBound < rightBound) {
 			int partitionIndex = partition(arr, leftBound, rightBound);
 
 			// partition left half
-			quicksortRecursive(arr, leftBound, partitionIndex - 1);
+			quickSortRecursive(arr, leftBound, partitionIndex - 1);
 			// partition right half
-			quicksortRecursive(arr, partitionIndex + 1, rightBound);
-
+			quickSortRecursive(arr, partitionIndex + 1, rightBound);
 		} // end if
-
 	}
 
+	/**
+	 * Selects a pivot (ideally roughly the median of the values)
+	 * and swaps the data in the array based on the generic class comparable. 
+	 * Only swaps the data within the given bounds. 
+	 * 
+	 * @param <T>			Generic class type
+	 * @param arr			Generic array list to be sorted
+	 * @param leftBound		left index of the array that you want to be sorted
+	 * @param rightBound	right index of the array that you want to be sorted
+	 * @return				the index that the partition value was at
+	 */
 	private static <T extends Comparable<? super T>> int partition(ArrayList<T> arr, int leftBound, int rightBound) {
 		int L = leftBound;
 		int R = rightBound - 1;
-
-		// select a pivot
+		
+		//select a pivot
 		int pivotIndex = findPivotBetter(arr, leftBound, rightBound);
 		T pivot = arr.get(pivotIndex);
-
-		// swap pivot to far right position
+		
+		//swap pivot to far right position
 		swapReferences(arr, rightBound, pivotIndex);
-
-		// find elements to swap locations
+		
+		//find elements to swap locations
 		while (L <= R) {
 			while (L < rightBound && (arr.get(L).compareTo(pivot) <= 0)) {
 				L++;
@@ -194,8 +223,7 @@ public class ArrayListSorter {
 			if (L < R)
 				swapReferences(arr, L, R);
 		}
-
-		// adds pivot back in
+		// swaps pivot back in
 		swapReferences(arr, L, rightBound);
 		return L;
 	}
@@ -227,6 +255,17 @@ public class ArrayListSorter {
 		return middle;
 	}
 
+	/**
+	 * Attempts to choose a pivot roughly the average value of the elements between
+	 * the bounds. Does this by randomly selecting three indexes, sorts the three 
+	 * values, and returns the middle value. 
+	 * 
+	 * @param <T>			generic type 
+	 * @param arr			array list where all the data is 
+	 * @param leftBound		index of element on the left that needs to switch
+	 * @param rightBound		index of element on the right that needs to switch
+	 * @return			index of pivot element
+	 */
 	private static <T extends Comparable<? super T>> int findPivotBetter(ArrayList<T> arr, int leftBound,
 			int rightBound) {
 		// random generate 3 indexes from within bounds
@@ -254,8 +293,6 @@ public class ArrayListSorter {
 		}
 	}
 
-//	
-//	
 	/**
 	 * Generates an ascending ArrayList of Integers from 1 to size
 	 * 
