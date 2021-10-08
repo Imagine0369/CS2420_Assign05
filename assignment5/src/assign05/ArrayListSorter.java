@@ -101,8 +101,12 @@ public class ArrayListSorter {
 	}
 
 	/**
-	 * This method
-	 * 
+	 * This method merges the values of two sub-arrays by comparing 2 items (1 from each sub-array) and 
+	 * adding the smallest one to a new array. If an item from a sub-array has been added to
+	 * the temp array, the algorithm will advance to the next item in that specific sub-array.
+	 * This continues until all items in one sub-array have been added to the temp array.
+	 * The remainder of the other sub-array will be added to the temp array after the last item in the
+	 * temp array.
 	 * @param <T>
 	 * @param arr   array to be sorted
 	 * @param temp  array to hold the newly merged values
